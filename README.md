@@ -1,86 +1,111 @@
-Ονοματεπώνυμο: ΙΩΑΚΕΙΜ ΜΕΡΤΕΚΗΣ
-AEM: 2905
+The implemented classes are five in total:
 
-
-Οι υλοποιημένες κλάσεις είναι συνολικά 5 και είναι οι εξής:
-
-1. Message.java:
-    - Η κλάση αυτή αναπαριστά ένα μήνυμα στο σύστημα.
-    - Έχει 4 ιδιότητες:
-        - boolean isRead: Υποδεικνύει αν το μήνυμα έχει διαβαστεί ή όχι.
-        - String sender: Το όνομα χρήστη του αποστολέα του μηνύματος.
-        - String receiver: Το όνομα χρήστη του παραλήπτη του μηνύματος.
-        - String body: Το περιεχόμενο του μηνύματος.
+1. **Message.java**
+    - This class represents a message in the system.
+    - It has 4 properties:
+        - `boolean isRead`: Indicates whether the message has been read or not.
+        - `String sender`: The username of the sender.
+        - `String receiver`: The username of the receiver.
+        - `String body`: The content of the message.
       
-    -  Έχει και 4 συναρτήσεις πέρα από τον Constructor:
-        - boolean isRead(): Επιστρέφει αν το μήνυμα έχει διαβαστεί.
-        - void markAsRead(): Για να δείξουμε ότι το μήνυμα είναι διαβασμένο.
-        - String getSender(): Επιστρέφει τον αποστολέα του μηνύματος.
-        - String getReceiver(): Επιστρέφει τον παραλήπτη του μηνύματος.
-        - String getBody(): Επιστρέφει το κείμενο του μηνύματος.
+    - It also has the following methods (in addition to the constructor):
+        - `boolean isRead()`: Returns whether the message has been read.
+        - `void markAsRead()`: Marks the message as read.
+        - `String getSender()`: Returns the sender of the message.
+        - `String getReceiver()`: Returns the receiver of the message.
+        - `String getBody()`: Returns the text of the message.
 
-2. Account.java:
-    - Η κλάση αυτή αναπαριστά έναν λογαριασμό χρήστη στο σύστημα.
-    - Έχει 3 Ιδιότητες:
-        - username: Το μοναδικό όνομα χρήστη για τον λογαριασμό.
-        - authToken: Ένας μοναδικός κωδικός που εκχωρείται από τον εξυπηρετητή για την αυθεντικοποίηση του χρήστη.
-        - messageBox: Μία λίστα από μηνύματα που έχουν αποσταλεί σε αυτόν τον λογαριασμό.
+2. **Account.java**
+    - This class represents a user account in the system.
+    - It has 3 properties:
+        - `String username`: The unique username of the account.
+        - `int authToken`: A unique token assigned by the server to authenticate the user.
+        - `List<Message> messageBox`: A list of messages that have been sent to this account.
       
-    - Έχει και 4 συναρτήσεις πέρα από τον Constructor:
-        - String getUsername(): Επιστρέφει το όνομα χρήστη.
-        - int getAuthToken(): Επιστρέφει το μοναδικό κωδικό για κάθε χρήστη(Auth Token).
-        - List<Message> getMessageBox() : Επιστρέφει τη λίστα με τα μηνύματα του χρήστη. 
-        - void addMessage(Message message): Προσθέτει ένα μήνυμα στη λίστα με τα μηνύματα του χρήστη.
+    - It also has the following methods (in addition to the constructor):
+        - `String getUsername()`: Returns the username.
+        - `int getAuthToken()`: Returns the unique authentication token for the user.
+        - `List<Message> getMessageBox()`: Returns the list of messages of the user.
+        - `void addMessage(Message message)`: Adds a message to the user’s message list.
 
-3. ServerInterface.java:
-    - Ορίζει τη διεπαφή απομακρυσμένης κλήσης (RMI) που προσφέρει ο εξυπηρετητής στους πελάτες.
+3. **ServerInterface.java**
+    - This interface defines the RMI (Remote Method Invocation) operations that the server exposes to its clients.
    
-    - Οι Συναρτήσεις είναι σύνολο 6 και είναι οι εξής:
-        - int createAccount: Δημιουργεί έναν νέο λογαριασμό και επιστρέφει έναν μοναδικό auth token.
-        - List<String> showAccounts: Επιστρέφει μια λίστα με όλα τα ονόματα χρηστών στο σύστημα.
-        - String sendMessage: Στέλνει μήνυμα σε παραλήπτη.
-        - List<String> showInbox: Επιστρέφει όλα τα μηνύματα για έναν χρήστη.
-        - String readMessage: Διαβάζει ένα συγκεκριμένο μήνυμα και το μαρκάρει ως διαβασμένο.
-        - String deleteMessage: Διαγράφει ένα συγκεκριμένο μήνυμα.
+    - It declares 6 methods:
+        - `int createAccount(...)`: Creates a new account and returns a unique auth token.
+        - `List<String> showAccounts(...)`: Returns a list of all usernames in the system.
+        - `String sendMessage(...)`: Sends a message to a recipient.
+        - `List<String> showInbox(...)`: Returns all messages for a specific user.
+        - `String readMessage(...)`: Reads a specific message and marks it as read.
+        - `String deleteMessage(...)`: Deletes a specific message.
 
-4. Server.java:
-    - Η κλάση αυτή υλοποιεί τη διεπαφή(Interface) MessagingServerInterface.
-    - Διαχειρίζεται τους λογαριασμούς χρηστών και τα μηνύματα.
-    - Χρησιμοποιεί έναν HashMap για την αποθήκευση λογαριασμών όπου το κλειδί είναι το όνομα χρήστη(String) και αντιστοιχεί σε ένα λογαριασμό.
-    - Μέσω αυτής μπορούμε να διαχειριζόμαστε ταυτόχρονα πολλά αιτήματα χρηστών.
-    - Ο εξυπηρετητής εκχωρεί έναν μοναδικό authToken για κάθε χρήστη κατά τη δημιουργία του λογαριασμού και είναι απαραίτητος για τις διάφορες ενέργειες του χρήστη.
-    - Όλα τα ονόματα χρηστών πρέπει να είναι αλφαριθμητικά ή να περιέχουν την κάτω παύλα (_) ενώ τα μη έγκυρα ονόματα χρηστών απορρίπτονται(Αυτό ελέγχεται στην αρχή της συνάρτησης createAccount(String username)).
-    - Να σημειωθεί ότι το σύστημα δεν αποθηκεύει δεδομένα μεταξύ εκτελέσεων και ότι όλα τα δεδομένα (λογαριασμοί, μηνύματα) αποθηκεύονται στη μνήμη και χάνονται όταν ο εξυπηρετητής σταματήσει.
-    - Ο Server υποστηρίζει ταυτόχρονα αιτήματα από πολλαπλούς πελάτες χρησιμοποιώντας συγχρονισμό.
-    - 
+4. **Server.java**
+    - This class implements the `ServerInterface`.
+    - It manages user accounts and messages.
+    - It uses a `HashMap` to store accounts, where the key is the username (`String`) and the value is the corresponding `Account` object.
+    - Through this class the system can handle multiple user requests concurrently.
+    - The server assigns a unique `authToken` to each user when an account is created, and this token is required for the user’s actions.
+    - All usernames must be alphanumeric or contain the underscore (`_`). Invalid usernames are rejected (this is checked at the beginning of `createAccount(String username)`).
+    - The system does not persist data between executions: all data (accounts, messages) are stored in memory and are lost when the server stops.
+    - The server supports concurrent requests from multiple clients using synchronization.
     
-    - Έχει 2 Ιδιότητες:
-         - Map<String, Account> accounts: Δομή Map για την αποθήκευση ονομάτων χρηστών και αντιστοίχηση τους με ένα λογαριασμό.
-         - int authTokenCounter: Μετρητής για τη δημιουργία μοναδικών authTokens και ξεκινά να παράγει κωδικούς ξεκινώντας από τον αριθμό 1000.
+    - It has 2 main fields:
+        - `Map<String, Account> accounts`: A map that stores usernames and maps them to their corresponding account.
+        - `int authTokenCounter`: A counter used to generate unique auth tokens. It starts from 1000.
 
-5. Client.java:
-    - Η κλάση αυτή επιτρέπει στους χρήστες να αλληλεπιδρούν με τον εξυπηρετητή στέλνοντας αιτήματα και λαμβάνοντας απαντήσεις (Ανάλογα με των κωδικό FN_ID).
-    - Οι λειτουργίες που υποστηρίζει είναι η δημιουργία λογαριασμού(FN_ID == 1), η προβολή όλων των accounts στο σύστημα(FN_ID == 2), η αποστολή μηνυμάτων σε κάποιον άλλο χρήστη(FN_ID == 3), 
-    - η προβολή των εισερχομένων με αστέρι αυτών που δε διαβάστηκαν ενώ χωρίς των διαβασμένων(FN_ID == 4), η ανάγνωση(FN_ID == 5) και η διαγραφή(FN_ID == 6) μηνυμάτων.
+5. **Client.java**
+    - This class allows users to interact with the server by sending requests and receiving responses (depending on the `FN_ID` provided).
+    - The supported operations are:
+        - Create account (`FN_ID == 1`)
+        - Show all accounts in the system (`FN_ID == 2`)
+        - Send a message to another user (`FN_ID == 3`)
+        - Show the inbox (unread messages are marked with a star `*`, read messages without a star) (`FN_ID == 4`)
+        - Read a message (`FN_ID == 5`)
+        - Delete a message (`FN_ID == 6`)
 
-6. Τέλος πρέπει να σημειωθεί ότι κάθε μήνυμα έχει ένα ID (το ID είναι ουσιαστικά η θέση τους στη λίστα μηνυμάτων πχ Για το 1ο μήνυμα ο κωδικός του θα είναι 0, για το 2ο θα είναι 1...) 
-   που χρησιμοποιείται για την ανάγνωση και διαγραφή συγκεκριμένων μηνυμάτων.
+6. Each message has an **ID** (the ID is essentially its position in the user’s message list, e.g. the first message has ID 0, the second has ID 1, etc.).  
+   This ID is used when reading and deleting specific messages.
 
-7. Για την εκτέλεση του προγράμματος τα βήματα είναι τα εξής :
-   1ο) Εκτελούμε την κλάση του εξυπηρετητή(Server) και του δίνουμε τα δεδομένα ως arguments. Στην περίπτωση του Server ως δεδομένο δίνουμε έναν ακέραιο(Int) που ουσιαστικά θα είναι το <port number>.
-   2ο) Εκτελούμε την κλάση του πελάτη(Client) και του δίνουμε τα δεδομένα ως arguments. Στην περίπτωση του Client δίνουμε με διαφορετική μορφή τα δεδομένα ανάλογα με τη λειτουργία που θέλουμε να εκτελέσουμε:
-      - Παραδείγματα:
-         - Για τη δημιουργία ενός user : localhost 5000 1 tester (Όπου η εντολή έχει ως εξής : <ip> <port number> 1 <username>). 
-           Εδώ ο χρήστης "tester" Θα πάρει authToken = 1000 και για κάθε ένα νέο χρήστη θα αυξάνεται κατά 1.
-           Αν πχ δημιουργήσουμε και έναν ακόμη : localhost 5000 1 tester2 (Ο tester2 θα έχει authToken = 1001)
+7. **How to run the program**
+
+   1) First, run the server class (`Server`) and pass the arguments from the command line.  
+      The server expects a single integer argument, which is the `<port number>`.
+
+   2) Then run the client class (`Client`) with the appropriate arguments.  
+      The format of the arguments depends on the operation you want to perform:
+
+      - **Examples:**
         
-         - Για την λίστα με όλα τα accounts που υπάρχουν στο σύστημα : localhost 5000 2 1000 (Όπου η εντολή έχει ως εξής : <ip> <port number> 2 <authToken>). 
-        
-         - Για να στείλει μήνυμα (<message_body>) στο account με username <recipient> : localhost 5000 3 1000 tester2 “HELLO WORLD” (Όπου η εντολή έχει ως εξής : <ip> <port number> 3 <authToken> <recipient> <message_body>).
-      
-         - Για να εμφανίσει τη λίστα με όλα τα μηνύματα για έναν συγκεκριμένο χρήστη : localhost 5000 4 1001 (Όπου η εντολή έχει ως εξής : <ip> <port number> 4 <authToken>).
+        - Create a user:  
+          `localhost 5000 1 tester`  
+          Command format:  
+          `<ip> <port number> 1 <username>`  
+          Here the user `"tester"` will receive `authToken = 1000`.  
+          If we create another user:  
+          `localhost 5000 1 tester2`  
+          then `tester2` will have `authToken = 1001`.
 
-         - Για να εμφανίσει το περιεχόμενο ενός μηνύματος του χρήστη με id <message_id> και έπειτα το μήνυμα να μαρκάρεται ως διαβασμένο : localhost 5000 5 1001 0 (Όπου η εντολή έχει ως εξής : <ip> <port number> 5 <authToken> <message_id>).
-        
-         - Για να διαγράψει το μήνυμα με id <message_id> : localhost 5000 6 1001 0 (Όπου η εντολή έχει ως εξής : <ip> <port number> 6 <authToken> <message_id>).
+        - Show all accounts in the system:  
+          `localhost 5000 2 1000`  
+          Command format:  
+          `<ip> <port number> 2 <authToken>`.
 
+        - Send a message `<message_body>` to the account with username `<recipient>`:  
+          `localhost 5000 3 1000 tester2 "HELLO WORLD"`  
+          Command format:  
+          `<ip> <port number> 3 <authToken> <recipient> <message_body>`.
+
+        - Show the inbox (all messages) for a specific user:  
+          `localhost 5000 4 1001`  
+          Command format:  
+          `<ip> <port number> 4 <authToken>`.
+
+        - Read the content of a message with id `<message_id>` for a specific user and mark it as read:  
+          `localhost 5000 5 1001 0`  
+          Command format:  
+          `<ip> <port number> 5 <authToken> <message_id>`.
+
+        - Delete the message with id `<message_id>`:  
+          `localhost 5000 6 1001 0`  
+          Command format:  
+          `<ip> <port number> 6 <authToken> <message_id>`.
