@@ -1,0 +1,17 @@
+# Java compiled classes
+*.class
+
+# JARs (build artifacts)
+*.jar
+
+# IntelliJ / IDEs
+.idea/
+*.iml
+out/
+bin/
+build/
+target/
+
+# OS junk
+.DS_Store
+Thumbs.db
